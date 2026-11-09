@@ -1,0 +1,28 @@
+<h1>product store</h1>
+
+<button (click)="addProduct()" [disabled]="posting">{{posting?'posting':'post dummy products'}}</button>
+@if(successMessage){
+  <p>{{successMessage}}</p>
+}
+@if(errorMessage){
+  <p>{{errorMessage}}</p>
+  <button (click)="loadProducts()">retry loading</button>
+}
+@if(loading){
+  <p>loading products.....</p>
+}
+@else {
+  @if (products.length>0) {
+    @for (product of products; track product.id) {
+       <img
+              [src]="product.thumbnail"
+              [alt]="product.title"
+            />
+      <h3>{{product.title}}</h3>
+      <p>{{product.price}}</p>
+    }
+  }
+  @else if (!errorMessage) {
+    <p>no products found</p>
+  }
+}
